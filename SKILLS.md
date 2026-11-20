@@ -77,6 +77,11 @@ Items below are not final. "Initial design" means the original materials suggest
 - Expected scale (pharmacy and customer counts).
 - Exact regulatory obligations (Ghana FDA, Pharmacy Council, NIA, Data Protection Commission, Acts 843/857) and data-residency requirements.
 
+## External best-practice references
+
+- **Supabase Postgres best practices** — vendored at `docs/references/supabase-postgres-best-practices/SKILL.md`, from [supabase/agent-skills](https://github.com/supabase/agent-skills) (MIT). Apply its rules before creating or changing tables, columns, indexes, constraints, RLS, or migrations. The detailed rule files live upstream under `references/` (e.g. `schema-foreign-key-indexes.md`, `query-missing-indexes.md`, `security-rls-basics.md`); fetch the relevant one from the upstream repo when applying it. These are general best practices and do not override the team's confirmed requirements above.
+- The broad **`supabase`** agent skill (Supabase Auth, supabase-js, Next.js/SSR, Edge Functions) was reviewed and **not** adopted: MediFind uses Spring Security and a Java backend, not Supabase Auth or the JS client libraries.
+
 ## Respecting the team's requirements
 
 - Details and requirements the group has provided are authoritative for MediFind. Do not discard, simplify, or replace them based on personal assumptions or a preferred implementation.
