@@ -14,7 +14,7 @@ Java 17 + Spring Boot backend for MediFind.
 Set Supabase credentials as environment variables (or edit `src/main/resources/application.yml`):
 
 ```
-DB_URL=jdbc:postgresql://db.<project>.supabase.co:5432/postgres
+DB_URL=jdbc:postgresql://db.nkoqnmecepefwgyfbfom.supabase.co:5432/postgres?sslmode=require
 DB_USERNAME=postgres
 DB_PASSWORD=<your-password>
 ```
