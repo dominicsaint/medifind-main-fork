@@ -1,0 +1,11 @@
+# Copy this file to application-local.yml (gitignored) and set your real Supabase
+# database password. Then run with the local profile so this file is loaded:
+#
+#   Windows : mvnw.cmd spring-boot:run --spring.profiles.active=local
+#   macOS/Linux : ./mvnw spring-boot:run --spring.profiles.active=local
+#
+# application-local.yml is ignored by .gitignore, so the password is never committed.
+# Spring loads application.yml first, then application-local.yml overrides it.
+spring:
+  datasource:
+    password: <your-supabase-db-password>

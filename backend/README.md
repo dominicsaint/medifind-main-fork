@@ -11,13 +11,25 @@ Java 17 + Spring Boot backend for MediFind.
 
 ## Configure
 
-Set Supabase credentials as environment variables (or edit `src/main/resources/application.yml`):
+The host, database, and user are set in `src/main/resources/application.yml`. Supply the password (never commit it) one of two ways.
 
-```
-DB_URL=jdbc:postgresql://db.nkoqnmecepefwgyfbfom.supabase.co:5432/postgres?sslmode=require
-DB_USERNAME=postgres
-DB_PASSWORD=<your-password>
-```
+**Option A — environment variable** (no file). Set it in the terminal before each run:
+
+    $env:DB_PASSWORD = "<your-supabase-db-password>"
+    mvnw.cmd spring-boot:run
+
+**Option B — local config file** (gitignored, so you don't retype it):
+
+1. Copy `src/main/resources/application-local.yml.example` to `src/main/resources/application-local.yml` (the real file is gitignored).
+2. Set the password in it:
+
+        spring:
+          datasource:
+            password: <your-supabase-db-password>
+
+3. Run with the local profile so that file is loaded:
+
+        mvnw.cmd spring-boot:run --spring.profiles.active=local
 
 ## Run
 
