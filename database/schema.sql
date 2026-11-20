@@ -1,0 +1,364 @@
+-- MediFind database schema for beginners
+-- This file creates the main tables used by the system.
+-- You can run this file when some tables already exist. PostgreSQL will skip
+-- creating a table if its name is already in use.
+-- IMPORTANT: IF NOT EXISTS does not add missing columns to an old table or
+-- change columns that are already there. Use a database migration for that.
+--
+-- Each table has an id column. SERIAL means PostgreSQL assigns the next
+-- whole number automatically (1, 2, 3, ...).
+-- A column marked REFERENCES points to a row in another table.
+
+-- LOCATION FEATURES (PostGIS)
+-- In Supabase, first enable postgis under Database > Extensions.
+-- PostGIS stores map points and supports nearby-distance searches.
+-- A map point is written longitude first, then latitude.
+
+CREATE SCHEMA IF NOT EXISTS extensions;
+CREATE EXTENSION IF NOT EXISTS postgis WITH SCHEMA extensions;
+
+-- People who can sign in to MediFind.
+CREATE TABLE IF NOT EXISTS users (
+    id SERIAL PRIMARY KEY,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    phone VARCHAR(30) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
+    full_name VARCHAR(150) NOT NULL,
+    is_active BOOLEAN NOT NULL DEFAULT TRUE,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Roles describe what a user is allowed to do, such as customer or pharmacist.
+CREATE TABLE IF NOT EXISTS roles (
+    id SERIAL PRIMARY KEY,
+    role_name VARCHAR(50) NOT NULL UNIQUE,
+    role_description TEXT
+);
+
+-- A user can have more than one role, and a role can belong to many users.
+CREATE TABLE IF NOT EXISTS user_roles (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER NOT NULL REFERENCES users(id),
+    role_id INTEGER NOT NULL REFERENCES roles(id),
+    assigned_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    assigned_by INTEGER REFERENCES users(id),
+    UNIQUE (user_id, role_id)
+);
+
+-- Customer details are kept separate from sign-in details.
+CREATE TABLE IF NOT EXISTS customers (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER NOT NULL UNIQUE REFERENCES users(id),
+    date_of_birth DATE,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- A customer can save more than one delivery address.
+CREATE TABLE IF NOT EXISTS customer_addresses (
+    id SERIAL PRIMARY KEY,
+    customer_id INTEGER NOT NULL REFERENCES customers(id),
+    label VARCHAR(50),
+    address_line TEXT NOT NULL,
+    digital_address VARCHAR(50),
+    -- The saved address location, used to find nearby pharmacies.
+    location extensions.geography(POINT, 4326),
+    is_default BOOLEAN NOT NULL DEFAULT FALSE
+);
+
+-- Pharmacy business and location details.
+CREATE TABLE IF NOT EXISTS pharmacies (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(200) NOT NULL,
+    license_number VARCHAR(100) NOT NULL UNIQUE,
+    address TEXT NOT NULL,
+    -- The pharmacy map point, used by nearby pharmacy searches.
+    location extensions.geography(POINT, 4326) NOT NULL,
+    verification_status VARCHAR(20) NOT NULL DEFAULT 'pending',
+    is_open BOOLEAN NOT NULL DEFAULT FALSE,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Connects a user account to a pharmacy where they work.
+CREATE TABLE IF NOT EXISTS pharmacy_staff (
+    id SERIAL PRIMARY KEY,
+    pharmacy_id INTEGER NOT NULL REFERENCES pharmacies(id),
+    user_id INTEGER NOT NULL REFERENCES users(id),
+    staff_role VARCHAR(30) NOT NULL,
+    council_registration_number VARCHAR(100),
+    is_verified BOOLEAN NOT NULL DEFAULT FALSE,
+    UNIQUE (pharmacy_id, user_id)
+);
+
+-- A pharmacy can set one opening-hours row for each day of the week.
+-- Use day_of_week values 0 to 6, where 0 is Sunday.
+CREATE TABLE IF NOT EXISTS pharmacy_hours (
+    id SERIAL PRIMARY KEY,
+    pharmacy_id INTEGER NOT NULL REFERENCES pharmacies(id),
+    day_of_week SMALLINT NOT NULL,
+    opens_at TIME,
+    closes_at TIME,
+    is_closed BOOLEAN NOT NULL DEFAULT FALSE,
+    UNIQUE (pharmacy_id, day_of_week)
+);
+
+-- Categories help customers browse the medicine catalogue.
+CREATE TABLE IF NOT EXISTS medicine_categories (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL UNIQUE,
+    description TEXT
+);
+
+-- General medicine information shared by pharmacies.
+CREATE TABLE IF NOT EXISTS medicines (
+    id SERIAL PRIMARY KEY,
+    category_id INTEGER REFERENCES medicine_categories(id),
+    brand_name VARCHAR(150) NOT NULL,
+    generic_name VARCHAR(150),
+    strength VARCHAR(50),
+    prescription_required BOOLEAN NOT NULL DEFAULT FALSE,
+    is_active BOOLEAN NOT NULL DEFAULT TRUE
+);
+
+-- The price and availability of a medicine at a particular pharmacy.
+CREATE TABLE IF NOT EXISTS pharmacy_inventory (
+    id SERIAL PRIMARY KEY,
+    pharmacy_id INTEGER NOT NULL REFERENCES pharmacies(id),
+    medicine_id INTEGER NOT NULL REFERENCES medicines(id),
+    price DECIMAL(10, 2) NOT NULL,
+    is_available BOOLEAN NOT NULL DEFAULT TRUE,
+    UNIQUE (pharmacy_id, medicine_id)
+);
+
+-- Stock is stored by batch because separate batches can have different expiry dates.
+-- To find available stock, add the quantities of the pharmacy's batch rows.
+CREATE TABLE IF NOT EXISTS inventory_batches (
+    id SERIAL PRIMARY KEY,
+    inventory_id INTEGER NOT NULL REFERENCES pharmacy_inventory(id),
+    batch_number VARCHAR(100) NOT NULL,
+    expiry_date DATE NOT NULL,
+    quantity INTEGER NOT NULL,
+    UNIQUE (inventory_id, batch_number)
+);
+
+-- A customer can upload a prescription for pharmacist review.
+-- Store a private file-storage key here, not the prescription file itself.
+CREATE TABLE IF NOT EXISTS prescriptions (
+    id SERIAL PRIMARY KEY,
+    customer_id INTEGER NOT NULL REFERENCES customers(id),
+    file_storage_key VARCHAR(500) NOT NULL,
+    doctor_name VARCHAR(150),
+    prescription_status VARCHAR(20) NOT NULL DEFAULT 'pending',
+    uploaded_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Keep a record of each pharmacist decision about a prescription.
+CREATE TABLE IF NOT EXISTS prescription_reviews (
+    id SERIAL PRIMARY KEY,
+    prescription_id INTEGER NOT NULL REFERENCES prescriptions(id),
+    pharmacy_staff_id INTEGER NOT NULL REFERENCES pharmacy_staff(id),
+    decision VARCHAR(20) NOT NULL,
+    notes TEXT,
+    reviewed_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- A customer can have a separate cart for each pharmacy.
+CREATE TABLE IF NOT EXISTS carts (
+    id SERIAL PRIMARY KEY,
+    customer_id INTEGER NOT NULL REFERENCES customers(id),
+    pharmacy_id INTEGER NOT NULL REFERENCES pharmacies(id),
+    cart_status VARCHAR(20) NOT NULL DEFAULT 'active',
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Each cart row points to a pharmacy inventory item and its requested quantity.
+CREATE TABLE IF NOT EXISTS cart_items (
+    id SERIAL PRIMARY KEY,
+    cart_id INTEGER NOT NULL REFERENCES carts(id),
+    inventory_id INTEGER NOT NULL REFERENCES pharmacy_inventory(id),
+    quantity INTEGER NOT NULL,
+    UNIQUE (cart_id, inventory_id)
+);
+
+-- One row represents one customer order from one pharmacy.
+CREATE TABLE IF NOT EXISTS orders (
+    id SERIAL PRIMARY KEY,
+    customer_id INTEGER NOT NULL REFERENCES customers(id),
+    pharmacy_id INTEGER NOT NULL REFERENCES pharmacies(id),
+    prescription_id INTEGER REFERENCES prescriptions(id),
+    order_status VARCHAR(30) NOT NULL DEFAULT 'placed',
+    subtotal DECIMAL(10, 2) NOT NULL,
+    delivery_fee DECIMAL(10, 2) NOT NULL DEFAULT 0,
+    total DECIMAL(10, 2) NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- The item name and price are copied into the order so old orders remain
+-- understandable if a pharmacy later changes its catalogue or prices.
+CREATE TABLE IF NOT EXISTS order_items (
+    id SERIAL PRIMARY KEY,
+    order_id INTEGER NOT NULL REFERENCES orders(id),
+    inventory_id INTEGER NOT NULL REFERENCES pharmacy_inventory(id),
+    batch_id INTEGER REFERENCES inventory_batches(id),
+    medicine_name VARCHAR(200) NOT NULL,
+    quantity INTEGER NOT NULL,
+    price_each DECIMAL(10, 2) NOT NULL
+);
+
+-- Records additions, sales, returns, and corrections to pharmacy stock.
+CREATE TABLE IF NOT EXISTS stock_movements (
+    id SERIAL PRIMARY KEY,
+    inventory_id INTEGER NOT NULL REFERENCES pharmacy_inventory(id),
+    batch_id INTEGER REFERENCES inventory_batches(id),
+    change_quantity INTEGER NOT NULL,
+    movement_type VARCHAR(20) NOT NULL,
+    order_id INTEGER REFERENCES orders(id),
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- An order can have more than one payment attempt, for example after a failed try.
+-- Do not store card numbers or mobile money PINs in this table.
+CREATE TABLE IF NOT EXISTS payments (
+    id SERIAL PRIMARY KEY,
+    order_id INTEGER NOT NULL REFERENCES orders(id),
+    provider VARCHAR(50) NOT NULL,
+    payment_method VARCHAR(30) NOT NULL,
+    payment_status VARCHAR(20) NOT NULL DEFAULT 'pending',
+    amount DECIMAL(10, 2) NOT NULL,
+    provider_reference VARCHAR(200),
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Rider details are separate from the rider's sign-in account.
+CREATE TABLE IF NOT EXISTS riders (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER NOT NULL UNIQUE REFERENCES users(id),
+    rider_type VARCHAR(20) NOT NULL,
+    verification_status VARCHAR(20) NOT NULL DEFAULT 'pending',
+    account_status VARCHAR(20) NOT NULL DEFAULT 'active',
+    -- Spring Boot updates this point while the rider is online or delivering.
+    current_location extensions.geography(POINT, 4326),
+    location_updated_at TIMESTAMP
+);
+
+-- Store private file-storage keys for rider documents, not document contents.
+CREATE TABLE IF NOT EXISTS rider_documents (
+    id SERIAL PRIMARY KEY,
+    rider_id INTEGER NOT NULL REFERENCES riders(id),
+    document_type VARCHAR(30) NOT NULL,
+    file_storage_key VARCHAR(500) NOT NULL,
+    verification_status VARCHAR(20) NOT NULL DEFAULT 'pending',
+    expires_on DATE
+);
+
+-- Records how a successful payment is divided between the pharmacy, rider,
+-- and MediFind. Exactly one of the three destination columns should be set.
+CREATE TABLE IF NOT EXISTS financial_ledger (
+    id SERIAL PRIMARY KEY,
+    payment_id INTEGER NOT NULL REFERENCES payments(id),
+    entry_type VARCHAR(20) NOT NULL,
+    pharmacy_id INTEGER REFERENCES pharmacies(id),
+    rider_id INTEGER REFERENCES riders(id),
+    is_platform_entry BOOLEAN NOT NULL DEFAULT FALSE,
+    amount DECIMAL(10, 2) NOT NULL,
+    settled_at TIMESTAMP,
+    CHECK (
+        (pharmacy_id IS NOT NULL AND rider_id IS NULL AND is_platform_entry = FALSE)
+        OR (pharmacy_id IS NULL AND rider_id IS NOT NULL AND is_platform_entry = FALSE)
+        OR (pharmacy_id IS NULL AND rider_id IS NULL AND is_platform_entry = TRUE)
+    )
+);
+
+-- Every order has at most one delivery. The destination is a saved customer address.
+CREATE TABLE IF NOT EXISTS deliveries (
+    id SERIAL PRIMARY KEY,
+    order_id INTEGER NOT NULL UNIQUE REFERENCES orders(id),
+    destination_address_id INTEGER NOT NULL REFERENCES customer_addresses(id),
+    delivery_status VARCHAR(20) NOT NULL DEFAULT 'pending',
+    estimated_distance_km DECIMAL(7, 2),
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Keep each rider offer as a row so declined and timed-out offers are remembered.
+CREATE TABLE IF NOT EXISTS delivery_assignments (
+    id SERIAL PRIMARY KEY,
+    delivery_id INTEGER NOT NULL REFERENCES deliveries(id),
+    rider_id INTEGER NOT NULL REFERENCES riders(id),
+    delivery_assignment_status VARCHAR(20) NOT NULL,
+    offered_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    responded_at TIMESTAMP
+);
+
+-- Store a hash of the delivery code, never the code itself.
+CREATE TABLE IF NOT EXISTS delivery_proofs (
+    id SERIAL PRIMARY KEY,
+    delivery_id INTEGER NOT NULL UNIQUE REFERENCES deliveries(id),
+    otp_hash VARCHAR(255) NOT NULL,
+    confirmed_at TIMESTAMP,
+    -- The rider's location when the customer confirms receipt.
+    handover_location extensions.geography(POINT, 4326),
+    photo_storage_key VARCHAR(500)
+);
+
+-- Tracks the delivery fee earned by a rider and whether it has been paid out.
+CREATE TABLE IF NOT EXISTS rider_earnings (
+    id SERIAL PRIMARY KEY,
+    rider_id INTEGER NOT NULL REFERENCES riders(id),
+    delivery_id INTEGER NOT NULL UNIQUE REFERENCES deliveries(id),
+    base_delivery_fee DECIMAL(10, 2) NOT NULL,
+    distance_bonus DECIMAL(10, 2) NOT NULL DEFAULT 0,
+    net_rider_pay DECIMAL(10, 2) NOT NULL,
+    payout_status VARCHAR(20) NOT NULL DEFAULT 'accrued'
+);
+
+-- Customers can create reminders for medicines they take.
+CREATE TABLE IF NOT EXISTS medication_reminders (
+    id SERIAL PRIMARY KEY,
+    customer_id INTEGER NOT NULL REFERENCES customers(id),
+    medicine_id INTEGER REFERENCES medicines(id),
+    medicine_name VARCHAR(150) NOT NULL,
+    dosage_schedule TEXT NOT NULL,
+    reminder_start_date DATE NOT NULL,
+    reminder_end_date DATE,
+    is_active BOOLEAN NOT NULL DEFAULT TRUE
+);
+
+-- A simple place to track questions raised by customers or other users.
+CREATE TABLE IF NOT EXISTS support_tickets (
+    id SERIAL PRIMARY KEY,
+    requester_user_id INTEGER NOT NULL REFERENCES users(id),
+    related_order_id INTEGER REFERENCES orders(id),
+    category VARCHAR(30) NOT NULL,
+    ticket_status VARCHAR(20) NOT NULL DEFAULT 'open',
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Record important actions without storing secrets or private document contents.
+CREATE TABLE IF NOT EXISTS system_audit_logs (
+    id SERIAL PRIMARY KEY,
+    actor_user_id INTEGER REFERENCES users(id),
+    user_action VARCHAR(100) NOT NULL,
+    action_description TEXT NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Spatial indexes help PostgreSQL search map points by distance.
+CREATE INDEX IF NOT EXISTS pharmacies_location_index
+    ON pharmacies USING GIST (location);
+
+CREATE INDEX IF NOT EXISTS customer_addresses_location_index
+    ON customer_addresses USING GIST (location);
+
+CREATE INDEX IF NOT EXISTS riders_current_location_index
+    ON riders USING GIST (current_location);
+
+-- Example: find pharmacies within 5,000 meters of a customer's location.
+-- Replace these sample coordinates with the customer's map location.
+-- Longitude comes first, then latitude.
+--
+-- SELECT id, name
+-- FROM pharmacies
+-- WHERE extensions.st_dwithin(
+--     location,
+--     extensions.st_setsrid(extensions.st_point(-0.1870, 5.6037), 4326)::extensions.geography,
+--     5000
+-- );

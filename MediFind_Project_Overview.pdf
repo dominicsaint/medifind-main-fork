@@ -1,0 +1,474 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+2 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+3 0 obj
+<< /Length 2541 >>
+stream
+0.08 0.18 0.34 rg
+BT /F2 22 Tf 1 0 0 1 54 748 Tm
+(MediFind | Project Overview) Tj
+ET
+0.25 0.35 0.45 rg
+BT /F1 11 Tf 1 0 0 1 54 719 Tm
+(Original concept and confirmed project direction) Tj
+ET
+0.05 0.40 0.38 rg
+BT /F2 13 Tf 1 0 0 1 54 691 Tm
+(Purpose) Tj
+ET
+0.12 0.17 0.22 rg
+BT /F1 10 Tf 1 0 0 1 54 671 Tm
+(MediFind is a group project to help people find medicines and licensed pharmacies, place) Tj
+0 -15 Td
+(orders, and arrange delivery. The platform connects customers, pharmacy staff, delivery) Tj
+0 -15 Td
+(riders, and administrators in one system.) Tj
+ET
+0.05 0.40 0.38 rg
+BT /F2 13 Tf 1 0 0 1 54 615 Tm
+(The initial idea) Tj
+ET
+0.12 0.17 0.22 rg
+BT /F1 10 Tf 1 0 0 1 54 595 Tm
+(The original project concept describes a digital medicine discovery and delivery platform.) Tj
+0 -15 Td
+(Customers can search for medicines and pharmacies, submit prescriptions where needed, pay) Tj
+0 -15 Td
+(for orders, and follow delivery progress. Pharmacies manage their medicine listings, stock,) Tj
+0 -15 Td
+(and prescription reviews. Riders collect prepared orders and deliver them to customers.) Tj
+ET
+0.12 0.17 0.22 rg
+BT /F1 10 Tf 1 0 0 1 54 531 Tm
+(The system also includes platform administration, payment handling, customer notifications,) Tj
+0 -15 Td
+(medication reminders, and records of important actions.) Tj
+ET
+0.05 0.40 0.38 rg
+BT /F2 13 Tf 1 0 0 1 54 490 Tm
+(People who use MediFind) Tj
+ET
+0.12 0.17 0.22 rg
+BT /F1 10 Tf 1 0 0 1 54 470 Tm
+(- Customers: discover pharmacies and medicines, upload prescriptions, order and pay, follow) Tj
+0 -15 Td
+(deliveries, and manage reminders.) Tj
+ET
+0.12 0.17 0.22 rg
+BT /F1 10 Tf 1 0 0 1 54 436 Tm
+(- Pharmacy staff: manage pharmacy information and stock, review prescriptions, prepare) Tj
+0 -15 Td
+(orders, and hand sealed packages to riders.) Tj
+ET
+0.12 0.17 0.22 rg
+BT /F1 10 Tf 1 0 0 1 54 402 Tm
+(- Delivery riders: receive delivery offers, collect pharmacy orders, update delivery) Tj
+0 -15 Td
+(progress, and confirm handover.) Tj
+ET
+0.12 0.17 0.22 rg
+BT /F1 10 Tf 1 0 0 1 54 368 Tm
+(- Platform administrators: review accounts, oversee orders and delivery issues, and support) Tj
+0 -15 Td
+(platform operations.) Tj
+ET
+0.30 0.36 0.42 rg
+BT /F1 9 Tf 1 0 0 1 54 329 Tm
+(This overview summarizes the original concept and group-provided project information. It) Tj
+0 -13 Td
+(does not replace the original architecture summary PDF.) Tj
+ET
+0.80 0.85 0.90 RG 54 38 m 558 38 l S
+0.35 0.42 0.50 rg
+BT /F1 8 Tf 1 0 0 1 54 23 Tm (MediFind Project Overview) Tj ET
+BT /F1 8 Tf 1 0 0 1 530 23 Tm (1 / 5) Tj ET
+endstream
+endobj
+4 0 obj
+<< /Type /Page /Parent 13 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 3 0 R >>
+endobj
+5 0 obj
+<< /Length 2476 >>
+stream
+0.08 0.18 0.34 rg
+BT /F2 22 Tf 1 0 0 1 54 748 Tm
+(Main Customer Journey) Tj
+ET
+0.05 0.40 0.38 rg
+BT /F2 13 Tf 1 0 0 1 54 712 Tm
+(1. Find a medicine or pharmacy) Tj
+ET
+0.12 0.17 0.22 rg
+BT /F1 10 Tf 1 0 0 1 54 692 Tm
+(The customer searches the medicine catalogue or looks for pharmacies. Search results can) Tj
+0 -15 Td
+(show pharmacies that carry the medicine, their distance, and whether stock is available.) Tj
+ET
+0.05 0.40 0.38 rg
+BT /F2 13 Tf 1 0 0 1 54 651 Tm
+(2. Add items and provide a prescription) Tj
+ET
+0.12 0.17 0.22 rg
+BT /F1 10 Tf 1 0 0 1 54 631 Tm
+(The customer adds medicines to a cart associated with a pharmacy. If an item requires a) Tj
+0 -15 Td
+(prescription, the customer uploads the prescription for pharmacy review.) Tj
+ET
+0.05 0.40 0.38 rg
+BT /F2 13 Tf 1 0 0 1 54 590 Tm
+(3. Review and place the order) Tj
+ET
+0.12 0.17 0.22 rg
+BT /F1 10 Tf 1 0 0 1 54 570 Tm
+(The customer selects a delivery address and reviews the order cost. The pharmacy checks the) Tj
+0 -15 Td
+(order and prescription, confirms availability, and prepares accepted items.) Tj
+ET
+0.05 0.40 0.38 rg
+BT /F2 13 Tf 1 0 0 1 54 529 Tm
+(4. Pay and follow delivery) Tj
+ET
+0.12 0.17 0.22 rg
+BT /F1 10 Tf 1 0 0 1 54 509 Tm
+(The customer pays using a supported payment provider. After the pharmacy prepares and seals) Tj
+0 -15 Td
+(the package, the platform arranges a rider. The customer can follow delivery updates and) Tj
+0 -15 Td
+(confirm receipt with a one-time code.) Tj
+ET
+0.05 0.40 0.38 rg
+BT /F2 13 Tf 1 0 0 1 54 453 Tm
+(5. Continue using MediFind) Tj
+ET
+0.12 0.17 0.22 rg
+BT /F1 10 Tf 1 0 0 1 54 433 Tm
+(Customers can view order history, rate the experience, and set medication reminders.) Tj
+ET
+0.05 0.40 0.38 rg
+BT /F2 13 Tf 1 0 0 1 54 407 Tm
+(Location features) Tj
+ET
+0.12 0.17 0.22 rg
+BT /F1 10 Tf 1 0 0 1 54 387 Tm
+(Customers can save an address or choose a map location. MediFind uses location data to find) Tj
+0 -15 Td
+(nearby pharmacies and help arrange deliveries. During an active delivery, the rider can) Tj
+0 -15 Td
+(share location updates so the customer can follow progress.) Tj
+ET
+0.30 0.36 0.42 rg
+BT /F1 9 Tf 1 0 0 1 54 333 Tm
+(The map display, address lookup, route guidance, payment provider, and message providers are) Tj
+0 -13 Td
+(integrations that the group can select as implementation proceeds.) Tj
+ET
+0.80 0.85 0.90 RG 54 38 m 558 38 l S
+0.35 0.42 0.50 rg
+BT /F1 8 Tf 1 0 0 1 54 23 Tm (MediFind Project Overview) Tj ET
+BT /F1 8 Tf 1 0 0 1 530 23 Tm (2 / 5) Tj ET
+endstream
+endobj
+6 0 obj
+<< /Type /Page /Parent 13 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 5 0 R >>
+endobj
+7 0 obj
+<< /Length 2595 >>
+stream
+0.08 0.18 0.34 rg
+BT /F2 22 Tf 1 0 0 1 54 748 Tm
+(Pharmacy, Rider, and Admin Workflows) Tj
+ET
+0.05 0.40 0.38 rg
+BT /F2 13 Tf 1 0 0 1 54 712 Tm
+(Pharmacy staff) Tj
+ET
+0.12 0.17 0.22 rg
+BT /F1 10 Tf 1 0 0 1 54 692 Tm
+(- Maintain pharmacy details, operating hours, medicine listings, prices, and batch stock.) Tj
+ET
+0.12 0.17 0.22 rg
+BT /F1 10 Tf 1 0 0 1 54 673 Tm
+(- Review submitted prescriptions and record approval or rejection decisions.) Tj
+ET
+0.12 0.17 0.22 rg
+BT /F1 10 Tf 1 0 0 1 54 654 Tm
+(- Confirm order availability, prepare medicine, label and seal the package, and record rider) Tj
+0 -15 Td
+(pickup.) Tj
+ET
+0.12 0.17 0.22 rg
+BT /F1 10 Tf 1 0 0 1 54 620 Tm
+(- Review order and payment records relevant to the pharmacy.) Tj
+ET
+0.05 0.40 0.38 rg
+BT /F2 13 Tf 1 0 0 1 54 594 Tm
+(Delivery riders) Tj
+ET
+0.12 0.17 0.22 rg
+BT /F1 10 Tf 1 0 0 1 54 574 Tm
+(- Submit account and identity documents for review.) Tj
+ET
+0.12 0.17 0.22 rg
+BT /F1 10 Tf 1 0 0 1 54 555 Tm
+(- Choose when to be available and receive delivery offers.) Tj
+ET
+0.12 0.17 0.22 rg
+BT /F1 10 Tf 1 0 0 1 54 536 Tm
+(- Collect the sealed package from the pharmacy and update delivery progress.) Tj
+ET
+0.12 0.17 0.22 rg
+BT /F1 10 Tf 1 0 0 1 54 517 Tm
+(- Confirm delivery using the customer's one-time code and record proof of handover.) Tj
+ET
+0.05 0.40 0.38 rg
+BT /F2 13 Tf 1 0 0 1 54 491 Tm
+(Platform administrators) Tj
+ET
+0.12 0.17 0.22 rg
+BT /F1 10 Tf 1 0 0 1 54 471 Tm
+(- Review pharmacy and rider accounts and their verification status.) Tj
+ET
+0.12 0.17 0.22 rg
+BT /F1 10 Tf 1 0 0 1 54 452 Tm
+(- Monitor orders, deliveries, support requests, and operational issues.) Tj
+ET
+0.12 0.17 0.22 rg
+BT /F1 10 Tf 1 0 0 1 54 433 Tm
+(- Handle permitted exceptions and keep an audit record of important actions.) Tj
+ET
+0.05 0.40 0.38 rg
+BT /F2 13 Tf 1 0 0 1 54 407 Tm
+(Privacy and safety needs) Tj
+ET
+0.12 0.17 0.22 rg
+BT /F1 10 Tf 1 0 0 1 54 387 Tm
+(Prescription files, identity documents, payment information, and location details need) Tj
+0 -15 Td
+(access controls. Riders need delivery information to complete a delivery, while customer) Tj
+0 -15 Td
+(health information should remain limited to authorized pharmacy staff.) Tj
+ET
+0.30 0.36 0.42 rg
+BT /F1 9 Tf 1 0 0 1 54 333 Tm
+(Workflow details here come from the group's original idea and architecture materials.) Tj
+0 -13 Td
+(Confirm any change that appears to conflict with them before changing project files.) Tj
+ET
+0.80 0.85 0.90 RG 54 38 m 558 38 l S
+0.35 0.42 0.50 rg
+BT /F1 8 Tf 1 0 0 1 54 23 Tm (MediFind Project Overview) Tj ET
+BT /F1 8 Tf 1 0 0 1 530 23 Tm (3 / 5) Tj ET
+endstream
+endobj
+8 0 obj
+<< /Type /Page /Parent 13 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 7 0 R >>
+endobj
+9 0 obj
+<< /Length 2600 >>
+stream
+0.08 0.18 0.34 rg
+BT /F2 22 Tf 1 0 0 1 54 748 Tm
+(System Shape and Data) Tj
+ET
+0.05 0.40 0.38 rg
+BT /F2 13 Tf 1 0 0 1 54 712 Tm
+(System structure) Tj
+ET
+0.12 0.17 0.22 rg
+BT /F1 10 Tf 1 0 0 1 54 692 Tm
+(The original architecture describes a modular monolith: one backend application with) Tj
+0 -15 Td
+(separate, clearly organized areas for customers, pharmacies, prescriptions, orders,) Tj
+0 -15 Td
+(payments, delivery, notifications, and administration. This keeps the first version easier) Tj
+0 -15 Td
+(to build as a group while keeping responsibilities organized.) Tj
+ET
+0.05 0.40 0.38 rg
+BT /F2 13 Tf 1 0 0 1 54 621 Tm
+(Main data areas) Tj
+ET
+0.12 0.17 0.22 rg
+BT /F1 10 Tf 1 0 0 1 54 601 Tm
+(- Accounts, roles, customer profiles, addresses, and pharmacy staff.) Tj
+ET
+0.12 0.17 0.22 rg
+BT /F1 10 Tf 1 0 0 1 54 582 Tm
+(- Pharmacies, pharmacy hours, medicine categories, medicine catalogue, inventory, batches,) Tj
+0 -15 Td
+(and stock movements.) Tj
+ET
+0.12 0.17 0.22 rg
+BT /F1 10 Tf 1 0 0 1 54 548 Tm
+(- Prescriptions, pharmacist reviews, carts, orders, and order items.) Tj
+ET
+0.12 0.17 0.22 rg
+BT /F1 10 Tf 1 0 0 1 54 529 Tm
+(- Payment attempts, financial ledger entries, riders, delivery assignments, delivery proofs,) Tj
+0 -15 Td
+(and rider earnings.) Tj
+ET
+0.12 0.17 0.22 rg
+BT /F1 10 Tf 1 0 0 1 54 495 Tm
+(- Medication reminders, support tickets, and system audit records.) Tj
+ET
+0.05 0.40 0.38 rg
+BT /F2 13 Tf 1 0 0 1 54 469 Tm
+(Location data) Tj
+ET
+0.12 0.17 0.22 rg
+BT /F1 10 Tf 1 0 0 1 54 449 Tm
+(The database stores map points for customer addresses, pharmacies, riders, and delivery) Tj
+0 -15 Td
+(handovers. PostGIS adds nearby-distance searches to PostgreSQL. A maps provider may) Tj
+0 -15 Td
+(separately provide map tiles, address lookup, or navigation.) Tj
+ET
+0.05 0.40 0.38 rg
+BT /F2 13 Tf 1 0 0 1 54 393 Tm
+(Database setup note) Tj
+ET
+0.12 0.17 0.22 rg
+BT /F1 10 Tf 1 0 0 1 54 373 Tm
+(The repository includes a beginner-oriented SQL schema at database/schema.sql. The group) Tj
+0 -15 Td
+(should use database migrations as the schema evolves. CREATE TABLE IF NOT EXISTS skips) Tj
+0 -15 Td
+(existing tables; it does not update their columns.) Tj
+ET
+0.30 0.36 0.42 rg
+BT /F1 9 Tf 1 0 0 1 54 319 Tm
+(The repository's draw.io architecture diagram gives the detailed workflows and) Tj
+0 -13 Td
+(relationships. This PDF is a readable overview, not a replacement for that diagram or the) Tj
+0 -13 Td
+(original summary.) Tj
+ET
+0.80 0.85 0.90 RG 54 38 m 558 38 l S
+0.35 0.42 0.50 rg
+BT /F1 8 Tf 1 0 0 1 54 23 Tm (MediFind Project Overview) Tj ET
+BT /F1 8 Tf 1 0 0 1 530 23 Tm (4 / 5) Tj ET
+endstream
+endobj
+10 0 obj
+<< /Type /Page /Parent 13 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 9 0 R >>
+endobj
+11 0 obj
+<< /Length 2303 >>
+stream
+0.08 0.18 0.34 rg
+BT /F2 22 Tf 1 0 0 1 54 748 Tm
+(Confirmed Technology Decisions) Tj
+ET
+0.05 0.40 0.38 rg
+BT /F2 13 Tf 1 0 0 1 54 712 Tm
+(Choices confirmed by the group) Tj
+ET
+0.12 0.17 0.22 rg
+BT /F1 10 Tf 1 0 0 1 54 692 Tm
+(- Frontend: React Progressive Web App \(PWA\).) Tj
+ET
+0.12 0.17 0.22 rg
+BT /F1 10 Tf 1 0 0 1 54 673 Tm
+(- Backend: Java with Spring Boot.) Tj
+ET
+0.12 0.17 0.22 rg
+BT /F1 10 Tf 1 0 0 1 54 654 Tm
+(- Database: PostgreSQL hosted by Supabase.) Tj
+ET
+0.12 0.17 0.22 rg
+BT /F1 10 Tf 1 0 0 1 54 635 Tm
+(- Location search: PostGIS, enabled as a PostgreSQL extension in Supabase.) Tj
+ET
+0.05 0.40 0.38 rg
+BT /F2 13 Tf 1 0 0 1 54 609 Tm
+(How the pieces fit) Tj
+ET
+0.12 0.17 0.22 rg
+BT /F1 10 Tf 1 0 0 1 54 589 Tm
+(The React PWA is the customer-facing and role-based web application. It sends requests to) Tj
+0 -15 Td
+(the Java / Spring Boot backend. The backend applies MediFind's business rules and connects) Tj
+0 -15 Td
+(to Supabase PostgreSQL. Private files such as prescriptions can use Supabase Storage, with) Tj
+0 -15 Td
+(access checked by the backend.) Tj
+ET
+0.05 0.40 0.38 rg
+BT /F2 13 Tf 1 0 0 1 54 518 Tm
+(Keep original requirements intact) Tj
+ET
+0.12 0.17 0.22 rg
+BT /F1 10 Tf 1 0 0 1 54 498 Tm
+(These technology decisions describe how the group intends to implement MediFind. They do not) Tj
+0 -15 Td
+(cancel other needs in the original concept. If a detail in the original PDF appears to) Tj
+0 -15 Td
+(conflict with an idea or requirement the group states in a prompt, ask the group to confirm) Tj
+0 -15 Td
+(before changing anything based on that conflict.) Tj
+ET
+0.05 0.40 0.38 rg
+BT /F2 13 Tf 1 0 0 1 54 427 Tm
+(Not yet selected) Tj
+ET
+0.12 0.17 0.22 rg
+BT /F1 10 Tf 1 0 0 1 54 407 Tm
+(The group has not confirmed particular vendors for maps, payment processing, SMS or push) Tj
+0 -15 Td
+(notifications, or hosting for the React and Spring Boot applications. Treat those as open) Tj
+0 -15 Td
+(choices, not settled requirements.) Tj
+ET
+0.30 0.36 0.42 rg
+BT /F1 9 Tf 1 0 0 1 54 353 Tm
+(The existing MediFind Platform Architecture Summary.pdf is kept unchanged as the original) Tj
+0 -13 Td
+(source document.) Tj
+ET
+0.80 0.85 0.90 RG 54 38 m 558 38 l S
+0.35 0.42 0.50 rg
+BT /F1 8 Tf 1 0 0 1 54 23 Tm (MediFind Project Overview) Tj ET
+BT /F1 8 Tf 1 0 0 1 530 23 Tm (5 / 5) Tj ET
+endstream
+endobj
+12 0 obj
+<< /Type /Page /Parent 13 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 11 0 R >>
+endobj
+13 0 obj
+<< /Type /Pages /Kids [4 0 R 6 0 R 8 0 R 10 0 R 12 0 R] /Count 5 >>
+endobj
+14 0 obj
+<< /Type /Catalog /Pages 13 0 R >>
+endobj
+15 0 obj
+<< /Title (MediFind Project Overview) /Author (MediFind Group) /Subject (Original concept and confirmed project direction) >>
+endobj
+xref
+0 16
+0000000000 65535 f 
+0000000015 00000 n 
+0000000085 00000 n 
+0000000160 00000 n 
+0000002753 00000 n 
+0000002890 00000 n 
+0000005418 00000 n 
+0000005555 00000 n 
+0000008202 00000 n 
+0000008339 00000 n 
+0000010991 00000 n 
+0000011129 00000 n 
+0000013485 00000 n 
+0000013624 00000 n 
+0000013708 00000 n 
+0000013759 00000 n 
+trailer
+<< /Size 16 /Root 14 0 R /Info 15 0 R >>
+startxref
+13901
+%%EOF
